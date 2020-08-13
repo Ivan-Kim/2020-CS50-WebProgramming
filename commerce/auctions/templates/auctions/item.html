@@ -1,0 +1,96 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<!-- winner announce feature -->
+{% if user.username == item.bid.bidder and item.closed %}
+<div class="alert alert-warning">
+    <a class="close" href="" data-dismiss="alert"></a>
+    <strong>Congratulations, you won the auction!</strong></div>
+{% endif %}
+<br>
+
+<h2>Listing: {{item.name}}</h2>
+<!-- watchlist feature -->
+<a href="{% url 'watch' item.name %}">
+    {% if user.is_authenticated %}
+    {% if item not in user.watchList.all %}
+    Add to Watchlist
+    {% else %}
+    Remove from Watchlist
+    {% endif %}
+    {% endif %}
+</a>
+<br>
+<!-- original poster close auction feature -->
+<a href="{% url 'close' item.name %}">
+    {% if user.is_authenticated and user.username == item.op and not item.closed and item.bid %}
+    Close bid
+    {% endif %}
+</a>
+<br>
+
+{% if item.imageLink %}
+<img src="{{item.imageLink}}" />
+{% else %}
+(No image provided.)
+{% endif %}
+
+<!-- alert message when bid is lower than current price -->
+{% for message in messages %}
+<div class="alert alert-warning">
+    <a class="close" href="" data-dismiss="alert">×</a>
+    {{ message }}
+</div>
+{% endfor %}
+<h3>
+    {% if item.bid %}
+    Current bid: {{item.bid}}
+    {% elif item.closed %}
+    Item sold at: {{item.bid}}
+    {% else %}
+    Starting bid: ${{item.price}}
+    {% endif %}
+</h3>
+
+<!-- bid feature enabled only when logged in, bid still open, and user is not op of item -->
+{% if user.is_authenticated and not item.closed and user.username != item.op %}
+<form action="{% url 'item' item.name %}" method="POST">
+    {% csrf_token %}
+    {{bidform}}
+    <input type="submit" value="Place Bid">
+</form>
+{% elif item.closed %}
+Bid closed
+{% endif %}
+
+<h4>Details</h4>
+<ul>
+    <li>Listed by: {{item.op}}</li>
+    <li>Category:
+        {% if item.category %}
+        {{ item.category }}
+        {% else %}
+        No category listed
+        {% endif %}
+    </li>
+    <li>Description: {{item.description}}</li>
+</ul>
+
+<!-- comment section: list all comments on the item -->
+<h5>Comment:</h5>
+{% for comment in item.comments.all %}
+<p>{{comment}} ({{ comment.commentTime | slice:":20" }})</p>
+{% empty %}
+no comments
+{% endfor %}
+
+<!-- comment feature enabled only when logged in -->
+{% if user.is_authenticated %}
+<form action="{% url 'item' item.name %}" method="POST">
+    {% csrf_token %}
+    {{commentform}}
+    <input type="submit" value="Post Comment">
+</form>
+{% endif %}
+{% endblock %}

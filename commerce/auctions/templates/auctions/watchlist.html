@@ -1,0 +1,13 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>This is your watchlist:</h2>
+<ul>
+    {% for item in user.watchList.all %}
+    <li><a href="/{{item.name}}">{{item}}</a></li>
+    {% empty %}
+    Nothing in the watchlist yet.
+    {% endfor %}
+</ul>
+{% endblock %}

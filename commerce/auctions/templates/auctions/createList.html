@@ -1,0 +1,11 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h1>Create listing:</h1>
+<form action="{% url 'create' %}" method="POST">
+  {% csrf_token %} {{ form|linebreaks }}
+  <input type="submit" value="Create" />
+</form>
+{% endblock %}

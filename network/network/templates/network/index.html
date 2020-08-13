@@ -1,0 +1,41 @@
+<!-- prettier-ignore -->
+
+{% extends "network/layout.html" %} {% load static %}
+
+{% block body %}
+
+<h1>All Posts</h1>
+<form id="postform" action="{% url 'index' %}" method="POST">
+  {% csrf_token %} {{newpost}}
+  <input id="newpost" class="btn btn-primary" type="submit" value="Post" />
+</form>
+
+<!-- show each post -->
+<!-- prettier-ignore -->
+{% for post in posts %}
+<div class="post">
+  <h3><a href="{% url 'profile' post.op %}">{{post.op}}</a></h3>
+  <small>{{post.timestamp}}</small>
+  <small id="likecount{{post.id}}">❤️ {{post.likes.count}}</small>
+  <div id="content{{post.id}}">{{post.body}}</div>
+  <!-- edit feature -->
+  {% if user == post.op %}
+  <small><button type="submit" class="btn btn-light btn-sm edit" id="edit{{post.id}}">Edit</button></small>
+  {% endif %}
+  <small><button type="click" class="btn btn-light btn-sm like" id="like{{post.id}}">
+      {% if user not in post.likes.all %}
+      Like
+      {% else %}
+      Unlike
+      {% endif %}
+    </button></small>
+</div>
+{% empty %}
+No posts.
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/main.js' %}"></script>
+{% endblock %}

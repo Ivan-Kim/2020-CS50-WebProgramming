@@ -1,0 +1,14 @@
+<!-- prettier-ignore -->
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Edit Page
+{% endblock %}
+<!-- prettier-ignore -->
+{% block body %}
+<form action="{% url 'edit' %}" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Edit">
+</form>
+{% endblock %}

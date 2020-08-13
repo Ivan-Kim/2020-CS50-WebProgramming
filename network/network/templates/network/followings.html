@@ -1,0 +1,26 @@
+{% extends "network/layout.html" %} {% load static %}
+
+{% block body %}
+<h2>Followings:</h2>
+
+{% for post in posts %}
+<h3><a href="{% url 'profile' post.op %}">{{post.op}}</a></h3>
+<small>{{post.timestamp}}</small>
+<small id="likecount{{post.id}}">❤️ {{post.likes.count}}</small>
+<div id="content{{post.id}}">{{post.body}}</div>
+<small><button type="click" class="btn btn-light btn-sm like" id="like{{post.id}}">
+        {% if user not in post.likes.all %}
+        Like
+        {% else %}
+        Unlike
+        {% endif %}
+    </button></small>
+{% empty %}
+No posts.
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/main.js' %}"></script>
+{% endblock %}

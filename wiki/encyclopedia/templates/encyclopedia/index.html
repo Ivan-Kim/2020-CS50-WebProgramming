@@ -1,0 +1,21 @@
+<!-- prettier-ignore -->
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    {% if query %}
+<h1>Did you mean:</h1>
+{% else %}
+<h1>All Pages</h1>
+{% endif %}
+
+<ul>
+  {% for entry in entries %}
+  <li><a href="{{ entry }}">{{ entry }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

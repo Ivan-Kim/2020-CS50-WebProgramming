@@ -1,0 +1,11 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Category items</h2>
+<ul>
+    {% for item in items %}
+    <li><a href="/{{item.name}}">{{item}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

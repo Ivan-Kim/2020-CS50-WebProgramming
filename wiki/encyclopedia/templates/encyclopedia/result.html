@@ -1,0 +1,18 @@
+<!-- prettier-ignore -->
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Search Result: {{ name }}
+{% endblock %}
+
+{% block body %}
+{% if result %}
+{{ result|safe }}
+<form action="{% url 'edit' %}" method="GET">
+    <input type="hidden" id="title" name="title" value="{{ name }}">
+    <input type="submit" value="Edit">
+</form>
+{% else %}
+Error! Requested page for {{name}} not found.
+{% endif %}
+{% endblock %}

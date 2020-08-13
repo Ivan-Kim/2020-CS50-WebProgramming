@@ -1,0 +1,57 @@
+<!-- prettier-ignore -->
+
+{% extends "network/layout.html" %} {% load static %}
+
+{% block body %}
+<h2 id="{{profileuser.username}}">Profile: {{profileuser.username}}</h2>
+<!-- follow button disabled for oneself -->
+{% if user != profileuser%}
+<button id="follow" class="btn btn-primary">
+  {% if user not in profileuser.followers.all %}
+  Follow
+  {% else %}
+  Unfollow
+  {% endif %}
+</button>
+<br />
+{% endif %}
+
+<h3>Followers:</h3>
+<div id="followers">
+  <!-- prettier-ignore -->
+  {% for follower in profileuser.followers.all %}
+  {{follower}}
+  {% empty %}
+  No followers.
+  {% endfor %}
+</div>
+<br />
+
+<h3>Following:</h3>
+<div id="followings">
+  <!-- prettier-ignore -->
+  {% for following in profileuser.followings.all %}
+  {{following}}
+  {% empty %}
+  No followings.
+  {% endfor %}
+</div>
+<br />
+
+<h3>Past Posts:</h3>
+{% for post in posts %}
+<div class="post">
+  <p>{{post.body}}</p>
+  <small>{{post.timestamp}}</small>
+  <small>❤️ {{post.likes.count}}</small>
+</div>
+<!-- prettier-ignore -->
+{% empty %}
+No posts.
+{% endfor %}
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'network/main.js' %}"></script>
+{% endblock %}

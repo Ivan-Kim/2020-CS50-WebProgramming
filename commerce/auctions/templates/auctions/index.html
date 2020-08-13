@@ -1,0 +1,16 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Active Listings</h2>
+<ul>
+  {% for item in lists %}
+  <img src="{{item.imageLink}}" />
+  <li><a href="{% url 'item' item.name %}">{{item}}</a></li>
+  <p>{{item.description}}</p>
+  {% empty %}
+  <p>No items</p>
+  {% endfor %}
+</ul>
+
+{% endblock %}

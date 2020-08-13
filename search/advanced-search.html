@@ -1,0 +1,50 @@
+<!DOCTYPE html >
+<html lang="en" >
+  <head>
+    <title>Advanced Search</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="search-styles.css" />
+  </head>
+
+  <body>
+    <div id="logo-search-return" >
+        <p ><a href="search.html"><img src="google-logo.png" style="width: 100px; height: auto; margin-left: 20px;"></a></p>
+    </div>
+
+    <p id="advance-search-label">Advanced Search</p>
+    <p style="margin-left: 35px;">Find pages with...</p>
+
+    <div class="advance-search-section">
+        <form action="https://google.com/search">
+            <div class="search-labels">
+                <label for="all">all these words:</label>
+            </div>
+                <input id="all" type="text" name="as_q"></input>
+            <br>
+            <div class="search-labels">
+                <label for="exact" style="padding-right: 20px;">this exact word or phrase:</label>
+            </div>
+                <input id="exact" type="text" name="as_epq"></input>
+            <br>
+            <div class="search-labels">            
+                <label for="any">any of these words:</label>
+            </div>
+            <input id="any" type="text" name="as_oq"></input>
+            <br>
+            <div class="search-labels">  
+                <label for="none">none of these words:</label>
+            </div>
+            <input id="none" type="text" name="as_eq"></input>
+            <br>
+            <button id="advance-search" type="submit">Advanced Search</button>
+        </form>
+    </div>
+
+    <footer>
+      <p id="country">South Korea</p>
+      <p>Help</p>
+      <p>Privacy</p>
+      <p>Terms</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<!-- prettier-ignore -->
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2>Categories</h2>
+<ul>
+    {% for category in categories %}
+    {% if category %}
+    <li><a href="categories/{{category}}">{{category}}</a></li>
+    {% endif %}
+    {% empty %}
+    No categories yet.
+    {% endfor %}
+</ul>
+{% endblock %}
